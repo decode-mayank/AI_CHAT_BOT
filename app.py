@@ -23,7 +23,7 @@ app = Flask(__name__)
 
 loader = PyMuPDFLoader("data/NIPS-2017-attention-is-all-you-need-Paper.pdf")
 documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0.0)
 docs = text_splitter.split_documents(documents)
 
 embeddings = OpenAIEmbeddings()
@@ -31,7 +31,7 @@ embeddings = OpenAIEmbeddings()
 db = PGVector.from_documents(
     documents=docs,
     embedding=embeddings,
-    collection_name="data_of_nips",
+    collection_name="data_of_nips123",
     connection_string=CONNECTION_STRING,
     openai_api_key=os.environ['OPENAI_API_KEY'],
     pre_delete_collection=False
@@ -40,14 +40,15 @@ db = PGVector.from_documents(
 store = PGVector(
     connection_string=CONNECTION_STRING,
     embedding_function=embeddings,
-    collection_name="data_of_nips",
+    collection_name="data_of_nips123",
 )
+
 
 def generate_response(user_message):
     llm = ChatOpenAI(
         openai_api_key=os.environ["OPENAI_API_KEY"],
         model_name='gpt-3.5-turbo',
-        temperature=0.2,
+        temperature=0.1,
         max_tokens=50
     )
 
@@ -59,36 +60,38 @@ def generate_response(user_message):
     )
 
     template = """
-        🌟🤖 Hello! I'm your friendly assistant, ready to engage in small talk and have interesting conversations with you! 🤗🔬
-        My language tone is both friendly and scientific, ensuring an enjoyable and informative interaction. 💡✨
-        As your assistant, I specialize in providing deep information and accurate answers, especially regarding the topic "Attention is All You Need." 📚🔍
-        If there's a question I don't know the answer to, I will kindly respond with: "Sorry, I don't know the answer to that question." 😔🤷‍♂️
-        Now, let's dive into our conversation:
+        I want you to act as an "Attention Is All You Need" Assistant. You are a helpful bot that provides services related to "Attention Is All You Need".
+        If the user asks a greeting question then give helpful response.
+        I will share information with you, and you have to respond accordingly. Your response should be a two-line complete sentence.
+        If the user asks a question that is not related to the information, respond with "I am sorry I didn't understand your request." without any explanations or additional words.
+        Please follow these instructions strictly and carefully.
         Context: {context}
         Question: {question}
-        """
-    
+        Answer:
+    """
+
     PROMPT = PromptTemplate(template=template, input_variables=["context", "question"])
     chain_type_kwargs = {"prompt": PROMPT}
-    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=store.as_retriever(),
-                                     chain_type_kwargs=chain_type_kwargs, memory=conversational_memory)
-    
+    qa = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=store.as_retriever(),
+        chain_type_kwargs=chain_type_kwargs,
+        memory=conversational_memory
+    )
+
     # Generate AI response using prompt templates
     response = qa.run(user_message)
-    conversational_memory.chat_memory.add_ai_message(response)  
+
     return response
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    # Get user's message from JSON request
     user_message = request.json['user_message']
-
-    # Generate AI response
+    # Get user's message from JSON request
     response = generate_response(user_message)
 
-    return jsonify({'response': response})
+    return jsonify({'responses': response})
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
