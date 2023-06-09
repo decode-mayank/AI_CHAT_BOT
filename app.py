@@ -43,7 +43,6 @@ store = PGVector(
     collection_name="data_of_nips123",
 )
 
-
 def generate_response(user_message):
     llm = ChatOpenAI(
         openai_api_key=os.environ["OPENAI_API_KEY"],
@@ -60,14 +59,13 @@ def generate_response(user_message):
     )
 
     template = """
-        I want you to act as an "Attention Is All You Need" Assistant. You are a helpful bot that provides services related to "Attention Is All You Need".
-        If the user asks a greeting question then give helpful response.
-        I will share information with you, and you have to respond accordingly. Your response should be a two-line complete sentence.
-        If the user asks a question that is not related to the information, respond with "I am sorry I didn't understand your request." without any explanations or additional words.
-        Please follow these instructions strictly and carefully.
-        Context: {context}
-        Question: {question}
-        Answer:
+    I want you to act as an "Attention Is All You Need" Assistant. You are a helpful bot that provides services related to "Attention Is All You Need".
+    If the user asks a greeting question then give helpful response.I will share information with you, and you have to respond accordingly. Your response
+    should be a two-line complete sentence.If the user asks a question that is not related to the information, respond with "I am sorry I didn't understand
+    your request." without any explanations or additional words.Please follow these instructions strictly and carefully.
+    Context: {context}
+    Question: {question}
+    Answer:
     """
 
     PROMPT = PromptTemplate(template=template, input_variables=["context", "question"])
