@@ -2,19 +2,25 @@
 
 This code is an implementation of a chatbot using OpenAI's language model GPT-3.5. The chatbot is trained on a given PDF file and can answer questions related to the contents of the PDF.
 
+![image](https://github.com/decode-mayank/AI_CHAT_BOT/assets/134999232/1096381b-7bba-4708-936f-401c82a8b68b)
+
+
+
+
 # Installation
 
 # Setup Project
    git clone https://github.com/decode-mayank/AI_CHAT_BOT
 	
 # Requirements
-You also need to have an OpenAI API key to access the GPT-3.5 model.
-        
+
 	pip install -r requirements.txt
 
 Reference example.env to create .env file
+You also need to have an OpenAI API key to access the GPT-3.5 model.
+generate you api_key  https://www.openai.com/ 
 
-	api_key = 
+	api_key =  "API_KEY"
 	
 # Setup PGvector
   
@@ -34,7 +40,6 @@ Enable the extension (do this once in each database where you want to use it)
 
 # Usage
 
-1. Set your OpenAI API key in the code by replacing enter your openai api key here with your actual key.
-2. In app.py file, add the path to the PDF file you want to train the chatbot on by setting the PdfReader path to the file's location.
-3. Run the app.py and wait for the chatbot to initialize.
-4. Enter your questions or prompts into the text box and hit enter to receive a response from the chatbot.
+1. In app.py file, add the path to the PDF file you want to train the chatbot on by setting the PdfReader path to the file's location.
+2. Run the app.py and wait for the chatbot to initialize.
+3. Enter your questions or prompts into the text box and hit enter to receive a response from the chatbot.
