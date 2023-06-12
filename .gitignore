@@ -1,2 +1,20 @@
-# Ignore Python cache files
-__pycache__
+# Python cache files
+__pycache__/
+
+# Environment folder
+env/
+
+# Example environment file
+example.env
+
+# Generated data folder
+data/
+
+# Generated virtual environment
+venv/
+
+# Generated documentation file
+README.md
+
+# Generated requirements file
+requirements.txt
