@@ -9,7 +9,8 @@ This code is an implementation of a chatbot using OpenAI's language model GPT-3.
 	
 # Requirements
 You also need to have an OpenAI API key to access the GPT-3.5 model.
-        pip install -r requirements.txt
+        
+	pip install -r requirements.txt
 
 Reference example.env to create .env file
 
