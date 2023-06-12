@@ -20,7 +20,7 @@ Reference example.env to create .env file
 You also need to have an OpenAI API key to access the GPT-3.5 model.
 generate you api_key  https://www.openai.com/ 
 
-	api_key = 
+	api_key =  "API_KEY"
 	
 # Setup PGvector
   
