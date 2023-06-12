@@ -10,6 +10,7 @@ This code is an implementation of a chatbot using OpenAI's language model GPT-3.
 # Requirements
 
 Install the required libraries. 
+   
    pip install -r requirements.txt
 
 To run this code, you need the following libraries:
