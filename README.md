@@ -1,5 +1,8 @@
 # AI_CHAT_BOT
 
+![image](https://github.com/decode-mayank/AI_CHAT_BOT/assets/134999232/1096381b-7bba-4708-936f-401c82a8b68b)
+
+
 This code is an implementation of a chatbot using OpenAI's language model GPT-3.5. The chatbot is trained on a given PDF file and can answer questions related to the contents of the PDF.
 
 # Installation
