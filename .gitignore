@@ -1,10 +1,28 @@
-# Environment folder
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment directories
+venv/
+env/
 env/
 
-# Example environment file
-example.env
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
 
-# Generated data folder
-data/
+# IDE-specific files and directories
+.idea/
+.vscode/
 
+# OS-specific files and directories
+.DS_Store
+Thumbs.db
 
+# Logs and temporary files
+*.log
+*.swp
+*.swo
+*~
