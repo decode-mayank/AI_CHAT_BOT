@@ -79,8 +79,12 @@ def generate_response(user_message):
     )
 
     # Generate AI response using prompt templates
-    response = qa.run(user_message)
+    try:
+        response = qa.run(user_message)
+    except Exception as e:
+        response = "I am sorry I didn't understand your request."
 
+    print(conversational_memory)
     return response
 
 @app.route('/chat', methods=['POST'])
