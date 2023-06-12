@@ -9,15 +9,7 @@ This code is an implementation of a chatbot using OpenAI's language model GPT-3.
 	
 # Requirements
 
-Install the required libraries. 
-   
    pip install -r requirements.txt
-
-To run this code, you need the following libraries:
-Flask==2.3.2
-langchain==0.0.198
-openai==0.27.8
-..............
 
 You also need to have an OpenAI API key to access the GPT-3.5 model.
 
