@@ -84,7 +84,6 @@ def generate_response(user_message):
     except Exception as e:
         response = "I am sorry I didn't understand your request."
 
-    print(conversational_memory)
     return response
 
 @app.route('/chat', methods=['POST'])
