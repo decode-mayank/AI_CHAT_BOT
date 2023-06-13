@@ -1,28 +1,42 @@
-# Byte-compiled / optimized files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Environment directories
-venv/
-env/
-env/
 
 # Distribution / packaging
 dist/
 build/
 *.egg-info/
+*.egg
 
-# IDE-specific files and directories
+# Virtual environments
+venv/
+env/
+.venv/
+.venv*/
+
+# IDEs and editors
 .idea/
 .vscode/
+*.pydevproject
+*.pyproj
+*.stackdump
 
-# OS-specific files and directories
-.DS_Store
-Thumbs.db
+# Compiled Python files
+*.pyc
+*.pyo
+*.pyd
 
 # Logs and temporary files
 *.log
+*.bak
+*.cache/
 *.swp
-*.swo
-*~
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Ignore specific files and directories in 'data' folder
+/data
+

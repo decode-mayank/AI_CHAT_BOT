@@ -10,6 +10,7 @@ def chat():
     user_message = request.json['user_message']
     # Get user's message from JSON request
     response = generate_response(user_message)
+    
     return jsonify({'responses': response})
 
 if __name__ == "__main__":

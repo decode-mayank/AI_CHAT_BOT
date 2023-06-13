@@ -16,30 +16,25 @@ load_dotenv()
 # Set up OpenAI credentials
 os.environ['OPENAI_API_KEY'] = os.getenv('api_key')
 
-loader = PyMuPDFLoader("data/NIPS-2017-attention-is-all-you-need-Paper.pdf")
-documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0.0)
-docs = text_splitter.split_documents(documents)
-
-embeddings = OpenAIEmbeddings()
-
-db = PGVector.from_documents(
-    documents=docs,
-    embedding=embeddings,
-    collection_name="data_of_nips123",
-    connection_string=CONNECTION_STRING,
-    openai_api_key=os.environ['OPENAI_API_KEY'],
-    pre_delete_collection=False
-)
-
-store = PGVector(
-    connection_string=CONNECTION_STRING,
-    embedding_function=embeddings,
-    collection_name="data_of_nips123",
-)
-
-
 def generate_response(user_message):
+
+    loader = PyMuPDFLoader("data/NIPS-2017-attention-is-all-you-need-Paper.pdf")
+    documents = loader.load()
+    
+    # Create embeddings
+    embeddings = OpenAIEmbeddings()
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0.0)
+    docs = text_splitter.split_documents(documents)
+
+    db = PGVector.from_documents(
+        documents=docs,
+        embedding=embeddings,
+        collection_name="data_of_nips123",
+        connection_string=CONNECTION_STRING,
+        openai_api_key=os.environ['OPENAI_API_KEY'],
+        pre_delete_collection=False
+    )
+
     llm = ChatOpenAI(
         openai_api_key=os.environ["OPENAI_API_KEY"],
         model_name='gpt-3.5-turbo',
@@ -69,7 +64,7 @@ def generate_response(user_message):
     qa = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
-        retriever=store.as_retriever(),
+        retriever=db.as_retriever(),
         chain_type_kwargs=chain_type_kwargs,
         memory=conversational_memory
     )
