@@ -37,6 +37,6 @@ env/
 .DS_Store
 Thumbs.db
 
-# Ignore specific files and directories in 'data' folder
-/data
-
+#directory files 
+data/
+env/
