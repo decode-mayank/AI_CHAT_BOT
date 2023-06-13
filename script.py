@@ -6,7 +6,7 @@ load_dotenv()
 os.environ['OPENAI_API_KEY'] = os.getenv('api_key')
 
 # Configuration variables
-user_id = "2"
+user_id = "3"
 folder = "/home/bitcot/Desktop/Task-folder/demo"
 
 # Create the OpenAIEmbeddings object
@@ -27,4 +27,4 @@ for file in filtered_files:
         print(document_embedding)
         print("*"*10)
         print(f"File: {file}")
-        # Process the embedding, such as storing or ana
+        
