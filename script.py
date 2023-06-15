@@ -79,4 +79,50 @@ def store_embeddings():
         }
         print(response)
 
-store_embeddings()
+# store_embeddings()
+
+#text generator function for multiple files
+def pdf_text_generator(filtered_files):
+    total_text = ""
+    for file in filtered_files:
+        file_path = os.path.join(folder, file)
+        loader = PyMuPDFLoader(file_path)
+        for text in loader.load():
+            total_text += text.page_content
+    return total_text
+
+#Chunks generator function for multile files
+def get_text_chunks(total_text):
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0.0)
+    docs = text_splitter.split_text(total_text)
+    return docs
+
+
+# create embeddings and store in vectorstore 
+def new_store_embeddings():
+    file_list = os.listdir(folder)
+
+    for user_id in range(1, 6):
+        filtered_files = [file for file in file_list if str(user_id) in file]
+        total_text = pdf_text_generator(filtered_files)
+        docs = get_text_chunks(total_text)
+
+        embeddings = OpenAIEmbeddings()
+
+        db = PGVector.from_texts(
+            texts=docs,
+            embedding=embeddings,
+            collection_name="data_of_storecode",
+            connection_string=CONNECTION_STRING,
+            openai_api_key=os.environ['OPENAI_API_KEY'],
+        )
+
+        response = {
+            "user_id": user_id,
+            "filtered_files": filtered_files,
+            "embeddings": db.as_retriever()
+        }
+        print(response)
+
+
+new_store_embeddings()
