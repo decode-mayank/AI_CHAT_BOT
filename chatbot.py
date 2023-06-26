@@ -32,7 +32,8 @@ def generate_response(user_message):
         collection_name="data_of_nips123",
         connection_string=CONNECTION_STRING,
         openai_api_key=os.environ['OPENAI_API_KEY'],
-        pre_delete_collection=False
+        pre_delete_collection=False,
+        
     )
 
     llm = ChatOpenAI(
